@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Car Price Prediction</title>
+  <!-- Required meta tags -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+  <!-- Custom styles for this template -->
+  <style>
+    body {
+      background-image: url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80');
+      background-size: cover;
+    }
+
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 10px;
+      padding: 30px;
+      margin-top: 50px;
+    }
+
+    .form-wrapper {
+      height: 300px;
+      overflow-y: scroll;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="form-container">
+        <h1 class="text-center mb-4">Car Price Prediction</h1>
+
+        <form method="post" action="{% url 'predict_price' %}">
+          <div class='form-wrapper'>
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="vehicletype">Vehicle Type:</label>
+            <input type="text" class="form-control" id="vehicletype" name="vehicletype" required>
+          </div>
+          <div class="form-group">
+            <label for="model">Model:</label>
+            <input type="text" class="form-control" id="model" name="model" required>
+          </div>
+          <div class="form-group">
+            <label for="kilometer">Kilometer:</label>
+            <input type="number" class="form-control" id="kilometer" name="kilometer" required>
+          </div>
+          <div class="form-group">
+            <label for="notrepaired">NotRepaired:</label>
+            <select class="form-control" id="notrepaired" name="notrepaired" required>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="numpictures">Number of Pictures:</label>
+            <input type="number" class="form-control" id="numpictures" name="numpictures" required>
+          </div>
+          <div class="form-group">
+            <label for="fueltype">Fuel Type:</label>
+            <select class="form-control" id="fueltype" name="fueltype" required>
+              <option value="electric">Electric</option>
+              <option value="cng">CNG</option>
+              <option value="gasoline">Gasoline</option>
+              <option value="hybrid">Hybrid</option>
+              <option value="petrol">Petrol</option>
+              <option value="lpg">LPG</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="regyear">Registration Year:</label>
+            <input type="number" class="form-control" id="regyear" name="regyear" required>
+          </div>
+          <div class="form-group">
+            <label for="regmonth">Registration Month:</label>
+            <input type="number" class="form-control" id="regmonth" name="regmonth" required>
+          </div>
+          <div class="form-group">
+            <label for="gearbox">Gearbox:</label>
+            <select class="form-control" id="gearbox" name="gearbox" required>
+              <option value="manual">Manual</option>
+              <option value="auto">Automatic</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="brand">Brand:</label>
+            <input type="text" class="form-control" id="brand" name="brand" required>
+          </div>
+          <div class="form-group">
+            <label for="postalcode">Postal Code:</label>
+            <input type="number" class="form-control" id="postalcode" name="postalcode" required>
+          </div>
+          <div class="form-group">
+            <label for="power">Power (in kW):</label>
+            <input type="number" class="form-control" id="power" name="power" required>
+          </div>
+          <div class="form-group">
+            <label for="datecrawled">Date Crawled:</label>
+            <input type="text" class="form-control" id="datecrawled" name="datecrawled" required>
+          </div>
+          <div class="form-group">
+            <label for="datecreated">Date Created:</label>
+            <input type="text" class="form-control" id="datecreated" name="datecreated" required>
+          </div>
+          <div class="form-group">
+            <label for="lastseen">Last Seen:</label>
+            <input type="text" class="form-control" id="lastseen" name="lastseen" required>
+          </div>
+        </div>
+          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+
+        {% if predict_price %}
+        <div class="mt-4">
+        <h4>Results:</h4>
+        <ul>
+          <li>Predicted Price: {{ prediction }}</li>
+        </ul>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
